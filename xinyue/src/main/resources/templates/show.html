@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>springboot学习</title>
+</head>
+
+<body>
+<table>
+    <tr>
+        <th>请求编号</th>
+        <th>请求名称</th>
+        <th>请求方法</th>
+        <th>请求路径</th>
+        <th>请求数据</th>
+        <th>编码类型</th>
+    </tr>
+    <!--
+        对集合变量hello进行遍历
+    -->
+    <tr th:each="request : ${request}">
+        <td th:text="${request.requestId}"></td>
+        <td th:text="${request.requestName}"></td>
+        <td th:text="${request.requestMethod}"></td>
+        <td th:text="${request.requestUri}"></td>
+        <td th:text="${request.requestData}"></td>
+        <td th:text="${request.requestDataType}"></td>
+    </tr>
+</table>
+
+</body>
+</html>

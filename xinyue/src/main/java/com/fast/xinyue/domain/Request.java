@@ -16,28 +16,55 @@ import java.util.Date;
 @Entity
 public class Request {
 
+    /**
+     * 请求的编号
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long requestId;
 
+    /**
+     * 请求名称
+     */
     private String requestName;
 
+    /**
+     * 请求方法
+     */
     private String requestMethod;
 
+    /**
+     * 请求路径
+     */
     private String requestUri;
 
+    /**
+     * 请求数据
+     */
     private String requestData;
 
+    /**
+     * 请求数据类型
+     */
     private String requestDataType;
 
+    /**
+     * 请求标头
+     */
     private String requestHeader;
 
+    /**
+     * 请求创建时间
+     */
     @JsonIgnore
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date requestCreateTime;
 
+    /**
+     * 请求更新时间
+     */
     @JsonIgnore
     @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)

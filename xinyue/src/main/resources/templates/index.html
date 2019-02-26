@@ -3,14 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <title>Fast Auto Test Web</title>
+    <!-- import Vue.js -->
+    <script src="//vuejs.org/js/vue.min.js"></script>
+    <!-- import stylesheet -->
+    <link rel="stylesheet" href="//unpkg.com/iview/dist/styles/iview.css">
+    <!-- import iView -->
+    <script src="//unpkg.com/iview/dist/iview.min.js"></script>
 </head>
 <body>
-<form action="/request/Test" method="get">
+<form action="/request/add" method="post">
     request param Test<br>
-    用户名称: <input type="text" name="username"><br>
-    用户密码: <input type="text" name="password"><br>
+    请求名称: <Input v-model="value" placeholder="request name" style="width: 300px" name="requestName"/><br>
+    请求方法: <Input v-model="value" placeholder="request method" style="width: 300px" name="requestMethod"/><br>
+    请求路径: <Input v-model="value" placeholder="request uri" style="width: 300px" name="requestUri"/><br>
+    请求数据: <Input v-model="value" placeholder="request data" style="width: 300px" name="requestData"/><br>
+    编码类型: <Input v-model="value" placeholder="encoding type" style="width: 300px" name="requestDataType"/><br>
+    请求标头: <Input v-model="value" placeholder="request headers" style="width: 300px" name="requestHeader"/><br>
     <input type="submit" value="提交">
 </form>
-
 </body>
 </html>
