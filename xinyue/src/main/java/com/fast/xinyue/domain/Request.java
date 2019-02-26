@@ -1,13 +1,18 @@
 package com.fast.xinyue.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.util.Date;
 
+
+// @Entity 存储Request对象，注释为JPA实体; 这告诉Hibernate从这个类中创建一个表
 @Entity
 public class Request {
 
@@ -27,26 +32,24 @@ public class Request {
 
     private String requestHeader;
 
-    private String requestCreateTime;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(insertable=false, updatable=false)
+    @JsonIgnore
     @CreationTimestamp
-    protected Date createTime;
+    @Temporal(TemporalType.TIMESTAMP)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private Date requestCreateTime;
 
     @JsonIgnore
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(insertable=false)
     @UpdateTimestamp
-    protected Date lastUpdateTime;
-
+    @Temporal(TemporalType.TIMESTAMP)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private Date lastUpdateTime;
 
     public Request() {
     }
 
     public Request(String requestName, String requestMethod, String requestUri,
                    String requestData, String requestDataType,
-                   String requestHeader, String requestCreateTime) {
+                   String requestHeader, Date requestCreateTime) {
         this.requestName = requestName;
         this.requestMethod = requestMethod;
         this.requestUri = requestUri;
@@ -112,21 +115,14 @@ public class Request {
         this.requestHeader = requestHeader;
     }
 
-    public String getRequestCreateTime() {
+    public Date getRequestCreateTime() {
         return requestCreateTime;
     }
 
-    public void setRequestCreateTime(String requestCreateTime) {
+    public void setRequestCreateTime(Date requestCreateTime) {
         this.requestCreateTime = requestCreateTime;
     }
 
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
 
     public Date getLastUpdateTime() {
         return lastUpdateTime;
@@ -147,7 +143,6 @@ public class Request {
                 ", requestDataType='" + requestDataType + '\'' +
                 ", requestHeader='" + requestHeader + '\'' +
                 ", requestCreateTime='" + requestCreateTime + '\'' +
-                ", createTime=" + createTime +
                 ", lastUpdateTime=" + lastUpdateTime +
                 '}';
     }
