@@ -49,4 +49,10 @@ public class TestController {
         }
         return "show";
     }
+
+    @GetMapping("/layui")
+    public String layui(){
+        System.out.println("layui在执行");
+        return "layui";
+    }
 }
