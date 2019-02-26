@@ -1,7 +1,12 @@
 package com.fast.xinyue.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 public class Request {
@@ -23,6 +28,18 @@ public class Request {
     private String requestHeader;
 
     private String requestCreateTime;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(insertable=false, updatable=false)
+    @CreationTimestamp
+    protected Date createTime;
+
+    @JsonIgnore
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(insertable=false)
+    @UpdateTimestamp
+    protected Date lastUpdateTime;
+
 
     public Request() {
     }
@@ -103,6 +120,22 @@ public class Request {
         this.requestCreateTime = requestCreateTime;
     }
 
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getLastUpdateTime() {
+        return lastUpdateTime;
+    }
+
+    public void setLastUpdateTime(Date lastUpdateTime) {
+        this.lastUpdateTime = lastUpdateTime;
+    }
+
     @Override
     public String toString() {
         return "Request{" +
@@ -114,6 +147,8 @@ public class Request {
                 ", requestDataType='" + requestDataType + '\'' +
                 ", requestHeader='" + requestHeader + '\'' +
                 ", requestCreateTime='" + requestCreateTime + '\'' +
+                ", createTime=" + createTime +
+                ", lastUpdateTime=" + lastUpdateTime +
                 '}';
     }
 }
