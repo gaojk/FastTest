@@ -4,11 +4,8 @@ import com.fast.xinyue.domain.Request;
 import com.fast.xinyue.service.RequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
 
 import org.slf4j.Logger;
@@ -26,11 +23,11 @@ public class RequestController {
     @Autowired
     private RequestService requestService;
 
-
     @RequestMapping(path = "/add",method = RequestMethod.POST)
     public String add(Request request){
         logger.info("请求名称: {}",request.getRequestName());
         requestService.addRequest(request);
-        return "redirect:/show/request";
+//        return "redirect:/show/request";
+        return "redirect:/layui";
     }
 }

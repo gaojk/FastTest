@@ -51,6 +51,17 @@
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
 
+
+        <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
+        <!-- fastJson对于json格式字符串的解析主要用到了一下三个类: JSON:fastJson的解析器,用于JSON格式字符串与JSON对象及javaBean之间的转换-->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.56</version>
+        </dependency>
+
+
+
     </dependencies>
 
     <build>

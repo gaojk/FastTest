@@ -1,25 +1,65 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Fast Auto Test Web</title>
-    <!-- import Vue.js -->
-    <script src="//vuejs.org/js/vue.min.js"></script>
-    <!-- import stylesheet -->
-    <link rel="stylesheet" href="//unpkg.com/iview/dist/styles/iview.css">
-    <!-- import iView -->
-    <script src="//unpkg.com/iview/dist/iview.min.js"></script>
+    <title>数据添加</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link type="text/css"  href="layui/css/layui.css" rel="stylesheet">
+    <script type="text/javascript" src="/layui/layui.js"></script>
 </head>
 <body>
-<form action="/request/add" method="post">
-    request param Test<br>
-    请求名称: <Input v-model="value" placeholder="request name" style="width: 300px" name="requestName"/><br>
-    请求方法: <Input v-model="value" placeholder="request method" style="width: 300px" name="requestMethod"/><br>
-    请求路径: <Input v-model="value" placeholder="request uri" style="width: 300px" name="requestUri"/><br>
-    请求数据: <Input v-model="value" placeholder="request data" style="width: 300px" name="requestData"/><br>
-    编码类型: <Input v-model="value" placeholder="encoding type" style="width: 300px" name="requestDataType"/><br>
-    请求标头: <Input v-model="value" placeholder="request headers" style="width: 300px" name="requestHeader"/><br>
-    <input type="submit" value="提交">
+<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+    <legend>表单集合演示</legend>
+</fieldset>
+<form class="layui-form" action="/request/add" method="post">
+    <div class="layui-form-item">
+
+        <label class="layui-form-label">请求名称:</label>
+        <div class="layui-input-block">
+        <input type="text" name="requestName" lay-verify="title" autocomplete="off" placeholder="请输入标题" class="layui-input">
+        </div>
+
+        <label class="layui-form-label">请求方法:</label>
+        <div class="layui-input-block">
+            <input type="text" name="requestMethod" lay-verify="title" autocomplete="off" placeholder="请输入标题" class="layui-input">
+        </div>
+
+        <label class="layui-form-label">请求路径:</label>
+        <div class="layui-input-block">
+            <input type="text" name="requestUri" lay-verify="title" autocomplete="off" placeholder="请输入标题" class="layui-input">
+        </div>
+
+        <label class="layui-form-label">请求数据:</label>
+        <div class="layui-input-block">
+            <input type="text" name="requestData" lay-verify="title" autocomplete="off" placeholder="请输入标题" class="layui-input">
+        </div>
+
+        <label class="layui-form-label">编码类型:</label>
+        <div class="layui-input-block">
+            <input type="text" name="requestDataType" lay-verify="title" autocomplete="off" placeholder="请输入标题" class="layui-input">
+        </div>
+
+        <label class="layui-form-label">请求标头:</label>
+        <div class="layui-input-block">
+            <input type="text" name="requestHeader" lay-verify="title" autocomplete="off" placeholder="请输入标题" class="layui-input">
+        </div>
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+
+
+    <!--<form action="/request/add" >-->
+    <!--请求名称: <Input v-model="value" placeholder="request name" style="width: 300px" name="requestName"/><br>-->
+    <!--请求方法: <Input v-model="value" placeholder="request method" style="width: 300px" name="requestMethod"/><br>-->
+    <!--请求路径: <Input v-model="value" placeholder="request uri" style="width: 300px" name="requestUri"/><br>-->
+    <!--请求数据: <Input v-model="value" placeholder="request data" style="width: 300px" name="requestData"/><br>-->
+    <!--编码类型: <Input v-model="value" placeholder="encoding type" style="width: 300px" name="requestDataType"/><br>-->
+    <!--请求标头: <Input v-model="value" placeholder="request headers" style="width: 300px" name="requestHeader"/><br>-->
+    <!--<input type="submit" value="提交">-->
+
+
 </form>
 </body>
 </html>
