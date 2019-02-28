@@ -30,9 +30,9 @@ public class TestController {
     @Autowired
     RequestRepository requestRepository;
 
-    @RequestMapping("/index")
-    public String index(){
-        return "index";
+    @RequestMapping("/add")
+    public String add(){
+        return "add";
     }
 
 
