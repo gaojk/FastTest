@@ -5,14 +5,23 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.util.Date;
 
 
-// @Entity 存储Request对象，注释为JPA实体; 这告诉Hibernate从这个类中创建一个表
+/**
+ * 该实体类表示的是HTTP接口测试的接口Request请求实体类
+ * <p>
+ *     实体类的主要职责是存储和管理系统内部的信息.
+ *     它也可以有行为，甚至很复杂的行为，但这些行为必须与它所代表的实体对象密切相关
+ *     实体类主要是作为数据管理和业务逻辑处理层面上存在的类别.
+ *     实体类是用于对必须存储的信息和相关行为建模的类.
+ *     实体类表示系统中的信息存储，它们一般用于表示系统所管理的核心概念.
+ * </p>
+ * {@link Entity} 存储Request对象，注释为JPA实体;这告诉Hibernate从这个类中创建一个表
+ *
+ */
 @Entity
 public class Request {
 

@@ -8,11 +8,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class RequestService {
 
+    private RequestRepository requestRepository;
+
     @Autowired
-    RequestRepository requestRepository;
+    public RequestService(RequestRepository requestRepository) {
+        this.requestRepository = requestRepository;
+    }
 
-
-    public void addRequest(Request request){
+    public void addRequest(Request request) {
         requestRepository.save(request);
     }
 

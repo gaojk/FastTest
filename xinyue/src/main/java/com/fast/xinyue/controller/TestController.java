@@ -89,4 +89,12 @@ public class TestController {
     }
 
 
+    @RequestMapping("/one")
+    public String showOne(){
+        return "one";
+    }
+
+
+
+
 }
