@@ -1,4 +1,4 @@
-package com.fast.xinyue.garbage;
+package com.fast.xinyue.waste;
 
 
 
