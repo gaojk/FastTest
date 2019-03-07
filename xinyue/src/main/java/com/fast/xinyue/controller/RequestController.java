@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,6 +32,7 @@ public class RequestController {
     public String add(Request request){
         logger.info("请求名称: {}",request.getRequestName());
         requestService.addRequest(request);
+
 //        return "redirect:/show/request";
         return "redirect:/layui";
     }

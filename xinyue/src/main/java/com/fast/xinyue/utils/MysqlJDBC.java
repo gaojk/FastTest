@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.HashMap;
 
 
 /**
@@ -48,27 +49,35 @@ import java.sql.Statement;
 
 public class MysqlJDBC {
 
-    public static void main(String[] args) throws ClassNotFoundException, SQLException  {
-        String URL="jdbc:mysql://127.0.0.1:3306/request01";
-        String USER="root";
-        String PASSWORD="12345678";
+    public static void main(String[] args) throws ClassNotFoundException, SQLException {
+        String URL = "jdbc:mysql://127.0.0.1:3306/request01";
+        String USER = "root";
+        String PASSWORD = "root";
         //1.加载驱动程序
         Class.forName("com.mysql.cj.jdbc.Driver");  // MySQL8 需要这个驱动哦
         //2.获得数据库链接
-        Connection connection=DriverManager.getConnection(URL, USER, PASSWORD);
+        Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
         //3.通过数据库的连接操作数据库，实现增删改查（使用Statement类）
-        Statement st=connection.createStatement();
-        ResultSet rs=st.executeQuery("select * from request");
+        Statement st = connection.createStatement();
+        ResultSet rs = st.executeQuery("select * from request");
         //4.处理数据库的返回结果(使用ResultSet类)
-        while(rs.next()){
-            System.out.println(rs.getString("request_name")+" "
-                    +rs.getString("request_method"));
-        }
+        try {
+            while (rs.next()) {
+                HashMap<String, String> data = new HashMap<String, String>();
+                data.put("method", rs.getString("request_method"));
+                data.put("name",rs.getString("request_name"));
+                data.put("url",rs.getString("request_uri"));
+                data.put("data",rs.getString("request_data"));
+                System.out.println(data);
 
-        //关闭资源
-        rs.close();
-        st.close();
-        connection.close();
+            }
+        }
+        finally {
+            //关闭资源
+            rs.close();
+            st.close();
+            connection.close();
+        }
     }
 
 }

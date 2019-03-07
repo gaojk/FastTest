@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>不同方式实现的数据表单显示</title>
+
+    <!--引入layui的css文件和js文件-->
+    <link type="text/css" href="layui/css/layui.css" rel="stylesheet">
+    <script type="text/javascript" src="/layui/layui.js"></script>
+
+</head>
+<body>
+
+<!--第一种方式-->
+<h2 align="center">第一种方式-简单数据表格😯</h2>
+<table class="layui-hide" id="test" lay-filter="test"></table>
+
+<!--表格上面增加按钮-->
+<script type="text/html" id="toolbarDemo">
+    <div class="layui-btn-container">
+        <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
+        <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
+        <button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>
+    </div>
+</script>
+
+<!--表格右侧增加按钮-->
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+
+
+<!--为了实现数据显示的js文件-->
+<script>
+    layui.use('table', function () {
+        var table = layui.table;
+
+        table.render({
+            elem: '#test'
+            , url: '/show/requests'
+            , toolbar: '#toolbarDemo'
+            , title: '测试数据表'
+            , cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+            , cols: [
+                [
+                    {type: 'checkbox', fixed: 'left'}
+                    , {field: 'requestId', width: 100, title: '请求编号', sort: true, align: "center"}
+                    , {field: 'requestName', width: 100, title: '请求名称'}
+                    , {field: 'requestMethod', width: 100, title: '请求方法'}
+                    , {field: 'requestUri', width: 100, title: '请求地址'}
+                    , {field: 'requestData', width: 100, title: '请求数据'}
+                    , {field: 'requestDataType', title: '编码格式', sort: true}
+                    , {field: 'requestHeader', title: '请求标头', sort: true}
+                    , {
+                    field: 'requestCreateTime', title: '创建时间', sort: true,
+                    //传换日期
+                    templet: function (row) {
+                        return createTime(row.requestCreateTime);
+                    }
+                }
+                    , {
+                    field: 'lastUpdateTime', title: '更新时间', sort: true,
+                    //传换日期
+                    templet: function (row) {
+                        return createTime(row.lastUpdateTime);
+                    }
+                }
+                    , {field: 'right',width:178, align:'center', toolbar: '#barDemo'}
+                ]
+            ], page: true
+        });
+
+
+        // 表格头工具栏事件
+        table.on('toolbar(test)', function (obj) {
+            var checkStatus = table.checkStatus(obj.config.id);
+            switch (obj.event) {
+                case 'getCheckData':
+                    var data = checkStatus.data;
+                    layer.alert(JSON.stringify(data));
+                    break;
+                case 'getCheckLength':
+                    var data = checkStatus.data;
+                    layer.msg('选中了：' + data.length + ' 个');
+                    break;
+                case 'isAll':
+                    layer.msg(checkStatus.isAll ? '全选' : '未全选');
+                    break;
+            }
+            ;
+        });
+
+        //监听行工具事件
+        //监听工具条
+        table.on('tool(test)', function (obj) {
+            var data = obj.data;
+            if (obj.event === 'detail') {
+                layer.msg('ID：' + data.id + ' 的查看操作');
+            } else if (obj.event === 'del') {
+                layer.confirm('真的删除行么', function (index) {
+                    obj.del();
+                    layer.close(index);
+                });
+            } else if (obj.event === 'edit') {
+                layer.alert('编辑行：<br>' + JSON.stringify(data))
+            }
+        });
+
+    });
+
+
+</script>
+
+<!-- 传换日期 -->
+<script type="text/javascript">
+    function createTime(v) {
+        var date = new Date(v);
+        var y = date.getFullYear();
+        var m = date.getMonth() + 1;
+        var d = date.getDate();
+        var h = date.getHours();
+        var M = date.getMinutes();
+        var S = date.getSeconds();
+        var str = y + "-" + m + "-" + d + " " + h + ":" + M + ":" + S;
+        return str;
+    }
+</script>
+
+
+<script>
+    layui.use('table', function () {
+        var table = layui.table;
+        //监听单元格编辑
+        table.on('edit(test)', function (obj) {
+            var value = obj.value //得到修改后的值
+                , data = obj.data //得到所在行所有键值
+                , field = obj.field; //得到字段
+            layer.msg('[ID: ' + data.id + '] ' + field + ' 字段更改为：' + value);
+        });
+    });
+
+</script>
+
+
+</body>
+</html>

@@ -44,6 +44,5 @@ public class HttpClient01 {
      */
 
 //    HttpResponse
-    HttpPost
 
 }

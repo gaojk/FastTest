@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+
+
+    <!--引入layui的css文件和js文件-->
+    <link type="text/css" href="layui/css/layui.css" rel="stylesheet">
+    <script type="text/javascript" src="/layui/layui.js"></script>
+
+
+</head>
+
+<body>
+<div class="layui-layout layui-layout-admin">
+
+    <!-- 头部区域（可配合layui已有的水平导航） -->
+    <div class="layui-header">
+        <div class="layui-logo">自动化测试平台</div>
+        <ul class="layui-nav layui-bg-black" style="background-color:#393D49;">
+            <li class="layui-nav-item"><a href="">软件测试平台</a></li>
+            <li class="layui-nav-item layui-this"><a href="">HTTP测试</a></li>
+            <li class="layui-nav-item"><a href="">UI自动化</a></li>
+            <li class="layui-nav-item">
+                <a href="javascript:;">解决方案</a>
+                <dl class="layui-nav-child">
+                    <dd><a href="/show_form">表单数据</a></dd>
+                    <dd><a href="/add">添加数据</a></dd>
+                    <dd><a href="">电商平台</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item"><a href="">社区</a></li>
+        </ul>
+    </div>
+
+    <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+    <!---->
+    <div class="layui-side layui-bg-black">
+        <div class="layui-side-scroll">
+            <ul class="layui-nav layui-nav-tree layui-bg-cyan layui-inline" lay-filter="demo">
+                <li class="layui-nav-item layui-nav-itemed">
+                    <a href="javascript:;">接口管理</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;">信贷接口</a></dd>
+                        <dd><a href="javascript:;">房贷接口</a></dd>
+                        <dd><a href="javascript:;">车贷接口</a></dd>
+                        <dd><a href="">其他接口</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">用例管理</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="">移动模块</a></dd>
+                        <dd><a href="">后台模版</a></dd>
+                        <dd><a href="">电商平台</a></dd>
+                    </dl>
+                </li>
+
+                <li class="layui-nav-item">
+                    <a href="javascript:;">执行统计</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="">问题统计</a></dd>
+                        <dd><a href="">使用统计</a></dd>
+                        <dd><a href="">其他统计</a></dd>
+                    </dl>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+
+    <!-- 内容主体区域 -->
+    <div class="layui-body">
+        <!--主题第一部分内容-->
+        <table class="layui-table">
+            <colgroup>
+                <col width="150">
+                <col width="200">
+                <col>
+            </colgroup>
+            <thead>
+            <tr>
+                <th>昵称</th>
+                <th>加入时间</th>
+                <th>寄语</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>心飞</td>
+                <td>2017-8-29</td>
+                <td>凡是你所畏惧的、都是你所且缺的</td>
+            </tr>
+            <tr>
+                <td>王五</td>
+                <td>2016-11-28</td>
+                <td>于千万人之中遇见你所遇见的人，于千万年之中，时间的无涯的荒野里…</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <!--主题第二部分内容-->
+
+        <!--数据表格头部工具栏-->
+        <script type="text/html" id="toolbarDemo">
+            <div class="layui-btn-container">
+                <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选择数据</button>
+                <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获选择数目</button>
+                <button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>
+            </div>
+        </script>
+
+        <!--实际数据表格-->
+        <table class="layui-hide" id="test" lay-filter="test"></table>
+
+        <!--数据表格右侧菜单-->
+        <script type="text/html" id="barDemo">
+            <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+            <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+        </script>
+
+        <!-- 底部固定区域 -->
+        <div class="layui-footer">
+            © xin.yue.com - 底部固定区域
+        </div>
+    </div>
+
+</div>
+
+
+<!--数据显示开发开始-->
+<!--显示后台数据-->
+<script>
+    layui.use('table', function () {
+        var table = layui.table;
+        // 显示数据
+        table.render({
+            elem: '#test'
+            , url: '/show/requests'
+            , title: '测试数据表'
+            , toolbar: '#toolbarDemo'
+            ,page: true //开启分页
+            // , toolbar: 'default' //开启工具栏，此处显示默认图标，可以自定义模板，详见文档
+            ,totalRow: true //开启合计行
+            , cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+            , cols: [
+                [
+                    {type: 'checkbox', fixed: 'left'}
+                    , {field: 'requestId', width: 100, title: 'ID', sort: true, align: "center"}
+                    , {field: 'requestName', width: 100, title: 'Name'}
+                    , {field: 'requestMethod', width: 100, title: 'Method'}
+                    , {field: 'requestUri', width: 100, title: 'URI'}
+                    , {field: 'requestData', width: 100, title: 'Data'}
+                    , {field: 'requestDataType', title: 'Content-Type', sort: true}
+                    , {field: 'requestHeader', title: 'Headers', sort: true}
+                    , {
+                    field: 'requestCreateTime', title: 'CreateTime', sort: true,
+                    //传换日期
+                    templet: function (row) {
+                        return createTime(row.requestCreateTime);
+                    }
+                    }
+                    , {
+                    field: 'lastUpdateTime', title: 'UpdateTime', sort: true,
+                    //传换日期
+                    templet: function (row) {
+                        return createTime(row.lastUpdateTime);
+                    }
+                    }
+                    , {field: 'right', width: 178, align: 'center', toolbar: '#barDemo'}
+                ]
+            ]
+        });
+        // 表格工具栏操作
+        table.on('toolbar(test)', function (obj) {
+            var checkStatus = table.checkStatus(obj.config.id);
+            switch (obj.event) {
+                case 'getCheckData':
+                    var data = checkStatus.data;
+                    layer.alert(JSON.stringify(data));
+                    break;
+                case 'getCheckLength':
+                    var data = checkStatus.data;
+                    layer.msg('选中了：' + data.length + ' 个');
+                    break;
+                case 'isAll':
+                    layer.msg(checkStatus.isAll ? '全选' : '未全选');
+                    break;
+            }
+            ;
+        });
+
+        //监听右侧行工具事件
+        table.on('tool(test)', function (obj) {
+            var data = obj.data;
+            if (obj.event === 'detail') {
+                layer.msg('ID：' + data.id + ' 的查看操作');
+            } else if (obj.event === 'del') {
+                layer.confirm('真的删除行么', function (index) {
+                    obj.del();
+                    layer.close(index);
+                });
+            } else if (obj.event === 'edit') {
+                layer.alert('编辑行：<br>' + JSON.stringify(data))
+            }
+        });
+
+    });
+
+</script>
+
+<!-- 传换日期 -->
+<script type="text/javascript">
+    function createTime(v) {
+        var date = new Date(v);
+        var y = date.getFullYear();
+        var m = date.getMonth() + 1;
+        var d = date.getDate();
+        var h = date.getHours();
+        var M = date.getMinutes();
+        var S = date.getSeconds();
+        var str = y + "-" + m + "-" + d + " " + h + ":" + M + ":" + S;
+        return str;
+    }
+</script>
+
+<!--数据显示开发结束-->
+
+<!--分页-->
+<script>
+    //分页
+    laypage.render({
+        elem: 'pageDemo' //分页容器的id
+        ,count: 100 //总页数
+        ,skin: '#1E9FFF' //自定义选中色值
+        //,skip: true //开启跳页
+        ,jump: function(obj, first){
+            if(!first){
+                layer.msg('第'+ obj.curr +'页', {offset: 'b'});
+            }
+        }
+    });
+</script>
+<!--监听导航点击-->
+<script>
+    layui.use('element', function () {
+        var element = layui.element; //导航的hover效果、二级菜单等功能，需要依赖element模块
+        //监听导航点击
+        element.on('nav(demo)', function (elem) {
+            console.log(elem.text());
+        });
+    });
+</script>
+</body>
+</html>

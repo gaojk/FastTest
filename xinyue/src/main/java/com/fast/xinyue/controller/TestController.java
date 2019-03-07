@@ -4,6 +4,7 @@ package com.fast.xinyue.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.fast.xinyue.domain.Request;
 import com.fast.xinyue.repository.RequestRepository;
+import com.fast.xinyue.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
@@ -16,19 +17,26 @@ import javax.websocket.server.PathParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
-import java.util.Dictionary;
 import java.util.List;
 
-
+/**
+ * 接口测试业务逻辑实现类
+ */
 @Controller
 @EnableAutoConfiguration
 public class TestController {
     private Logger logger = LoggerFactory.getLogger(getClass());
 
+    private final RequestRepository requestRepository;
+
+
+
     @Autowired
-    RequestRepository requestRepository;
+    public TestController(RequestRepository requestRepository) {
+        this.requestRepository = requestRepository;
+    }
+
 
     @RequestMapping("/add")
     public String add(){
